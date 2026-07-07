@@ -36,7 +36,7 @@ const CHAT_CONFETTI = [
   { top: "78%", left: "56%", size: 74, color: "#ffcc00" },
   { top: "88%", left: "44%", size: 56, color: "#ffcc00" },
   { top: "90%", left: "30%", size: 30, color: "#ff00ff" },
-] as const;
+];
 
 const GREEN_CONFETTI = [
   { top: "2%", left: "4%", size: 86, color: "#ffd000" },
@@ -60,7 +60,7 @@ const GREEN_CONFETTI = [
   { top: "61%", left: "78%", size: 80, color: "#ffd000" },
   { top: "73%", left: "90%", size: 72, color: "#1fe3d6" },
   { top: "81%", left: "20%", size: 50, color: "#ff1a1a" },
-] as const;
+];
 
 const TOP_PICK_CARDS = [
   {
@@ -81,7 +81,7 @@ const TOP_PICK_CARDS = [
     fallbackSrc: "https://github.com/JohnnyDeppisnumber1/Test_mo/raw/main/C10.png",
     alt: "10 card",
   },
-] as const;
+];
 
 const FINAL_LINES = [
   { text: "ты", color: "#ff5a5a", delay: 0.1 },
@@ -89,23 +89,7 @@ const FINAL_LINES = [
   { text: "пли", color: "#ff9adf", delay: 0.7 },
   { text: "зе", color: "#ffe629", delay: 1.0 },
   { text: "бест", color: "#008b19", delay: 1.3 },
-] as const;
-
-type Screen =
-  | "start"
-  | "chat"
-  | "game"
-  | "cards"
-  | "greenCards"
-  | "end"
-  | "endNext"
-  | "endFinal";
-
-type Message = {
-  id: string;
-  text: string;
-  sender: "user" | "bot";
-};
+];
 
 function NextArrowIcon() {
   return (
@@ -138,13 +122,7 @@ function HeartIcon() {
   );
 }
 
-function ConfettiOverlay({
-  items,
-  zIndexClass,
-}: {
-  items: readonly { top: string; left: string; size: number; color: string }[];
-  zIndexClass: string;
-}) {
+function ConfettiOverlay({ items, zIndexClass }) {
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -172,9 +150,9 @@ function ConfettiOverlay({
 }
 
 export default function BirthdayMobilePrototype() {
-  const [screen, setScreen] = useState<Screen>("start");
+  const [screen, setScreen] = useState("start");
   const [inputValue, setInputValue] = useState("");
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [messages, setMessages] = useState([]);
   const [showConfetti, setShowConfetti] = useState(false);
   const [showNextArrow, setShowNextArrow] = useState(false);
   const [showTopPickCards, setShowTopPickCards] = useState(false);
@@ -183,7 +161,7 @@ export default function BirthdayMobilePrototype() {
   const [showGreenNextArrow, setShowGreenNextArrow] = useState(false);
   const [showFinalConfetti, setShowFinalConfetti] = useState(false);
   const [showRestartButton, setShowRestartButton] = useState(false);
-  const endAudioRef = useRef<HTMLAudioElement | null>(null);
+  const endAudioRef = useRef(null);
 
   const chatConfettiItems = useMemo(() => CHAT_CONFETTI, []);
   const greenConfettiItems = useMemo(() => GREEN_CONFETTI, []);
@@ -321,7 +299,7 @@ export default function BirthdayMobilePrototype() {
     }, 650);
   };
 
-  const handleRevealTopCard = (index: number) => {
+  const handleRevealTopCard = (index) => {
     setRevealedTopCards((prev) =>
       prev.map((value, currentIndex) => (currentIndex === index ? true : value))
     );
